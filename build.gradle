@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'io.papermc.paperweight.userdev' version '1.7.2'
+}
+
+group = 'com.ppba'
+version = '2.1.0'
+description = 'Player Psychological Behavior Analyzer - AI-powered player profiling for Paper 1.21.1'
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url = 'https://papermc.io/repo/repository/maven-public/'
+    }
+}
+
+dependencies {
+    // Paper API (Bukkit)
+    paperweight.paperDevBundle('1.21.1-R0.1-SNAPSHOT')
+    
+    // SQLite JDBC driver
+    implementation 'org.xerial:sqlite-jdbc:3.46.0.0'
+    
+    // Adventure API (included with Paper but good to have explicit)
+    implementation 'net.kyori:adventure-api:4.15.0'
+    implementation 'net.kyori:adventure-text-serializer-plain:4.15.0'
+    
+    // JSON parsing (simple alternatives if needed)
+    implementation 'com.google.code.gson:gson:2.10.1'
+}
+
+tasks.assemble {
+    dependsOn reobfJar
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+java {
+    withSourcesJar()
+}

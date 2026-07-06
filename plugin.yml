@@ -1,0 +1,45 @@
+name: PPBA
+version: 2.1.0
+main: com.ppba.plugin.PPBAPlugin
+description: "Player Psychological Behavior Analyzer - AI-powered player profile system for Paper 1.21.1"
+authors: [Ggsun]
+website: "https://github.com/yourusername/ppba"
+
+commands:
+  ppba:
+    description: "Execute psychological behavior analysis report on a target player"
+    usage: "/ppba <player_name> report"
+    permission: ppba.admin.report
+    permission-message: "&cYou don't have permission to use this command."
+
+permissions:
+  ppba.admin.report:
+    description: "Allows staff to generate psychological profiles"
+    default: op
+  ppba.bypass.tracking:
+    description: "Bypass chat/combat tracking (for bots/test accounts)"
+    default: false
+
+api-version: 1.21
+
+config:
+  database:
+    type: "sqlite" # Options: sqlite, mysql
+    sqlite-path: "plugins/PPBA/data.db"
+    max-chat-history: 100
+    
+  api:
+    provider: "claude" # Options: claude, openai
+    api-key: "YOUR_API_KEY_HERE"
+    model: "claude-sonnet-4-6"
+    timeout-seconds: 30
+    
+  analysis:
+    min-data-points: 10 # Minimum chat messages needed for confidence
+    enable-async: true
+    webhook-url: "" # Optional: send reports to external webhook
+    
+  privacy:
+    mask-player-names-in-logs: false
+    log-reports-to-file: true
+    retention-days: 30
