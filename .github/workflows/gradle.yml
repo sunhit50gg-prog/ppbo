@@ -24,3 +24,10 @@ jobs:
 
     - name: Build with Gradle
       run: gradle build
+
+    - name: Upload Plugin JAR as Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Minecraft-Plugin
+        path: build/libs/*.jar
+        
